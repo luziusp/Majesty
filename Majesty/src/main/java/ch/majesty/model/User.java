@@ -1,4 +1,4 @@
-package model;
+package ch.majesty.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,9 +1,9 @@
-package rest;
+package ch.majesty.rest;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import model.User;
-import repository.UserRepo;
+import ch.majesty.model.User;
+import ch.majesty.repository.UserRepo;
 
 import java.util.List;
 

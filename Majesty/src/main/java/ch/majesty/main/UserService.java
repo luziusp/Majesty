@@ -8,17 +8,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ch.majesty.model.User;
+import ch.majesty.repository.UserRepo;
+
 import java.util.ArrayList;
 import java.util.List;
-import model.User;
-import repository.UserRepo;
 
 //Source: https://www.javacodegeeks.com/2013/04/spring-jparepository-example-in-memory.html
 
 @Service
+@Repository
 public class UserService {
 		
 	private final Logger LOG = LoggerFactory.getLogger(UserService.class);
@@ -38,6 +41,7 @@ public class UserService {
 			System.out.println(profile);
 			if(profile.equalsIgnoreCase("dev")) {
 				initDb();
+		
 			}
 		}
 	}
