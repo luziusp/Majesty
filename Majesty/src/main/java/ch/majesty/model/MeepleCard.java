@@ -1,0 +1,36 @@
+package ch.majesty.model;
+/*
+ * PLU  31.10.2018
+ */
+
+public class MeepleCard {
+	int count;
+	final int MAXMEEPLE=5;
+	
+	
+	public MeepleCard() {
+		this.count = MAXMEEPLE;
+	}
+	
+	public void add(int i) {
+		count += i;
+	}
+	
+	public void remove(int i) {
+		if(i <= count) {
+			count -= i;
+		}
+	//TODO: Add Error	
+	}
+	
+	//Use at end of turn
+	public int resolve() {
+		if(count >= MAXMEEPLE) {
+			int diff = (count - MAXMEEPLE);
+			this.count = MAXMEEPLE;	
+			return diff;
+		}	
+		else return 0;
+	}
+	
+}

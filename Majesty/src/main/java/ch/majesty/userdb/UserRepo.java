@@ -1,12 +1,13 @@
-package ch.majesty.repository;
+package ch.majesty.userdb;
 
+/*
+ * PLU  31.10.2018
+ */
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import ch.majesty.model.User;
 
 
 
@@ -14,4 +15,5 @@ import ch.majesty.model.User;
 public interface UserRepo extends JpaRepository<User, Long>{
 
 	List<User> findByLogin(String login);
+	
 }

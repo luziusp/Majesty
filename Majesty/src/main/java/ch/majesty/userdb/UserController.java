@@ -1,9 +1,9 @@
-package ch.majesty.rest;
+package ch.majesty.userdb;
+/*
+ * PLU  31.10.2018
+ */
 
 import org.springframework.web.bind.annotation.RestController;
-
-import ch.majesty.model.User;
-import ch.majesty.repository.UserRepo;
 
 import java.util.List;
 
