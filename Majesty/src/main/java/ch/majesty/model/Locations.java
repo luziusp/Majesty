@@ -3,9 +3,8 @@ package ch.majesty.model;
  * PLU  31.10.2018
  */
 
-import ch.majesty.userdb.User;
+
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter

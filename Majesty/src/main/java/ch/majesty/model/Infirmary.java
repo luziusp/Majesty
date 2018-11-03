@@ -5,6 +5,11 @@ package ch.majesty.model;
 
 import java.util.Stack;
 
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class Infirmary {
 	private Stack<CardType> patients;
 	

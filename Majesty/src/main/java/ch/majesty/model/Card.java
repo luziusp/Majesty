@@ -8,7 +8,7 @@ package ch.majesty.model;
 import javafx.scene.image.Image;
 
 public class Card {
-	Image img;
+
 	CardType type;
 	Player player;
 	
