@@ -1,8 +1,14 @@
 package ch.majesty.model;
+
+import java.util.List;
+
+import lombok.Getter;
+import lombok.Setter;
+
 /*
  * PLU  31.10.2018
  */
-
+@Getter @Setter
 public class MeepleCard {
 	int count;
 	final int MAXMEEPLE=5;

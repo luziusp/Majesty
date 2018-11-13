@@ -1,12 +1,17 @@
 package ch.majesty.model;
 
+import ch.majesty.userdb.User;
+
 /*
  * PLU  31.10.2018
  */
 
 
 import javafx.scene.image.Image;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter @Setter
 public class Card {
 
 	CardType type;
@@ -24,11 +29,13 @@ public class Card {
 	
 	public void playMiller() {
 		player.getLoc().changeMill(1);
+		System.out.println("Player " + player.getUser().getLogin() + " now has " + player.getLoc().getMill() + " Miller(s)");
 		player.changeScore(player.getLoc().getMill() *2);
 	}
 	
 	public void playBrewer() {
 		player.getLoc().changeBrewery(1);
+		System.out.println("Player " + player.getUser().getLogin() + " now has " + player.getLoc().getBrewery() + " Brewers(s)");
 		player.changeScore(player.getLoc().getBrewery() *2);
 		player.getMc().add(player.getLoc().getBrewery() *1);
 		
@@ -41,10 +48,16 @@ public class Card {
 	public void playWitch() {
 		
 		//The witch heals a card from the infirmary
+		if(player.getInf() != null) {
 		player.getInf().heal(player);
+		}
+		else {
+			System.out.println("No card could be healed");
+		}
 		
 		int array[] = new int[3];
 		player.getLoc().changeCottage(1);
+		System.out.println("Player " + player.getUser().getLogin() + " now has " + player.getLoc().getCottage() + " Witch(es)");
 		
 		//cottage gives 2 points per combo of miller, brewer, and witch
 		//--> smallest value of these three * 2
@@ -58,6 +71,7 @@ public class Card {
 	public void playGuard() {
 		int array[] = new int[3];
 		player.getLoc().changeGuardhouse(1);
+		System.out.println("Player " + player.getUser().getLogin() + " now has " + player.getLoc().getGuardhouse() + " Guard(s)");
 		
 		//guardhouse gives 2 points per combo of miller, brewer, and witch
 		//--> smallest value of these three * 2
@@ -70,6 +84,7 @@ public class Card {
 	public void playKnight() {
 		
 		player.getLoc().changeBarracks(1);
+		System.out.println("Player " + player.getUser().getLogin() + " now has " + player.getLoc().getBarracks() + " Knight(s)");
 		player.changeScore(player.getLoc().getMill() * 3);
 		
 		//Attack all players. the first card from the left goes to the infirmary 
@@ -133,7 +148,8 @@ public class Card {
 			
 		
 	public void playInnkeeper() {
-		player.getLoc().changeBrewery(1);
+		player.getLoc().changePub(1);
+		System.out.println("Player " + player.getUser().getLogin() + " now has " + player.getLoc().getPub() + " Innkeeper(s)");
 		player.changeScore(player.getLoc().getPub() *2);
 		
 		
@@ -143,6 +159,7 @@ public class Card {
 	}
 	public void playNoble() {
 		player.getLoc().changeCastle(1);
+		System.out.println("Player " + player.getUser().getLogin() + " now has " + player.getLoc().getCastle() + " Noble(s)");
 		player.changeScore(player.getLoc().getCastle() *5);
 		player.getMc().add(player.getLoc().getCastle() *1);
 	}

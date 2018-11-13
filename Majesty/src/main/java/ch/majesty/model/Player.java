@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter @Setter @NoArgsConstructor
 public class Player {
 	private User user;
-	private boolean youTurn;
+	private boolean yourTurn;
 	private Locations loc;
 	private Infirmary inf;
 	private int currentScore;
@@ -20,11 +20,12 @@ public class Player {
 	
 	public void changeScore(int i) {
 		this.currentScore += i;
+		System.out.println(this.user.getLogin() + " score increased by " +i + " to a total of: "+ this.getCurrentScore());
 	}
 	
 	public Player(User us) {
 		this.user = us;
-		this.youTurn = false;
+		this.yourTurn = false;
 		this.loc = new Locations();
 		this.currentScore =0;
 		this.mc = new MeepleCard();
