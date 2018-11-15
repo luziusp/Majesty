@@ -1,5 +1,7 @@
 package tests;
 
+import java.util.Random;
+
 import ch.majesty.model.Card;
 import ch.majesty.model.CardType;
 import ch.majesty.model.Market;
@@ -12,28 +14,43 @@ public class TestMarket {
 		
 	Market market = new Market();
 	Player player = new Player(new User("bla", "blabb", 0, 0));
+	int rounds = 5;
 	
+	for(int iteration = 0; iteration < rounds; iteration++) {
+		Random rand = new Random();
+	System.out.println("");	
+	System.out.println("++++++++++++++++++++++++++++++++");	
+	System.out.println("+                              +");	
+	System.out.println("+        ROUND " + iteration+ "               +");	
+	System.out.println("+                              +");	
+	System.out.println("++++++++++++++++++++++++++++++++");	
+	System.out.println("");
 	System.out.println("------------------------------");
 	System.out.println("Meeple count");
 	System.out.println(player.getMc().getCount());
 	System.out.println("------------------------------");
 	
 	System.out.println("Cards on board");
+	StringBuilder board1 = new StringBuilder();
 	for(CardType cards : market.getList()){
-		System.out.println(cards.toString());
+	board1.append(cards.toString()+ " / ");
 	}
+	System.out.println(board1.toString());
 	System.out.println("------------------------------");
 	
 	System.out.println("Meeples on cards ");
+	
+	StringBuilder amounts = new StringBuilder();
 	for(int amount : market.getMeeples()){
-		System.out.println(amount);
+		amounts.append(amount + " / ");
 	}
+	System.out.println(amounts.toString());
 	
 	System.out.println("------------------------------");
-	System.out.println("ACTION: Buy cards 3 and 4 ");
-	Card bla = market.buy(3, player);
-	Card bla2 = market.buy(4, player);
-	System.out.println(bla.getType().toString());
+	System.out.println("ACTION: Buy a random card ");
+	Card bla = market.buy(rand.nextInt(5), player);
+	
+	
 	
 	System.out.println("------------------------------");
 	System.out.println("Meeple count");
@@ -41,30 +58,38 @@ public class TestMarket {
 
 	System.out.println("------------------------------");
 	
+
 	System.out.println("Cards on board afterwards");
+	StringBuilder board2 = new StringBuilder();
 	for(CardType cards : market.getList()){
-		System.out.println(cards.toString());
+	board2.append(cards.toString()+ " / ");
 	}
+	System.out.println(board2.toString());
+	
 	System.out.println("------------------------------");
 	System.out.println("Meeples on cards after");
+	StringBuilder amounts2 = new StringBuilder();
 	for(int amount : market.getMeeples()){
-		System.out.println(amount);
+		amounts2.append(amount + " / ");
 	}
+	System.out.println(amounts2.toString());
+	
 	System.out.println("------------------------------");
 	
 	System.out.println("Rest of cards: ");
-	System.out.println("Brewer: "+market.getAmountBrewer());
-
-	System.out.println("Miller: "+market.getAmountMiller());
-
-	System.out.println("Witch: "+ market.getAmountWitch());
-
-	System.out.println("Guard: "+market.getAmountGuard());
-
-	System.out.println("Knight: "+market.getAmountKnight());
-
-	System.out.println("Innkeeper: "+market.getAmountInnkeeper());
-
-	System.out.println("Noble: "+market.getAmountNoble());
+	System.out.println("Brewer: "+market.getAmountBrewer() 
+	+ " / Miller: "+market.getAmountMiller() 
+	+ " / Witch: "+ market.getAmountWitch() 
+	+ " / Guard: "+market.getAmountGuard()
+	+ " / Knight: "+market.getAmountKnight()
+	+ " / Innkeeper: "+market.getAmountInnkeeper()		
+	+ " / Noble: "+market.getAmountNoble()		
+			);
+	System.out.println("------------------------------");
+	System.out.println("End turn and resolve meeples");
+	player.resolveMC();
+	
+	System.out.println("------------------------------");
+	}
 }
 }

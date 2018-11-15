@@ -23,6 +23,11 @@ public class Player {
 		System.out.println(this.user.getLogin() + " score increased by " +i + " to a total of: "+ this.getCurrentScore());
 	}
 	
+	public void resolveMC() {
+		changeScore(this.mc.resolve());
+	}
+	
+	
 	public Player(User us) {
 		this.user = us;
 		this.yourTurn = false;

@@ -67,6 +67,9 @@ public class Market {
 	
 	public Card buy(int listLocation, Player player) {
 		
+		if(listLocation <= player.getMc().getCount()) {
+			
+		
 		//reminder: location 0 on array = price 0. Do not change to +1!
 		int cost = listLocation ;
 		int bonus = meeples.get(listLocation);
@@ -98,6 +101,12 @@ public class Market {
 		
 		purchasedCard.play();
 		return purchasedCard;
+		
+	}
+		else {
+			return null;
+		}
+		
 		
 	}
 	

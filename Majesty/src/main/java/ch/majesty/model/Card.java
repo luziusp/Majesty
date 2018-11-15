@@ -7,7 +7,7 @@ import ch.majesty.userdb.User;
  */
 
 
-import javafx.scene.image.Image;
+
 import lombok.Getter;
 import lombok.Setter;
 
