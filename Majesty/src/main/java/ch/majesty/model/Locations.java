@@ -6,7 +6,7 @@ package ch.majesty.model;
 
 import lombok.Getter;
 import lombok.Setter;
-
+//TODO Make observable to set counts in GUI 
 @Getter @Setter
 public class Locations {
 	int mill;

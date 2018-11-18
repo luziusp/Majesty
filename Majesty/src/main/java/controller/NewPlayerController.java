@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.majesty.model.Player;
+import ch.majesty.userdb.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 
 public class NewPlayerController {
@@ -19,12 +21,12 @@ public class NewPlayerController {
 
 	private Stage stage;
 	private Main main;
-	private Player Player;
+	private User user;
 	private boolean okClicked = false;
 
-	public void setPlayer(Player Player) {
-		this.Player = Player;
-		if (Player != null) { // wenn wirklich eine person dahinter ist, dann
+	public void setPlayer(Player player) {
+		this.user = player.getUser();
+		if (player != null) { // wenn wirklich eine person dahinter ist, dann
 								// übernimmt er alle textfelder von der
 								// ausgewählten person.
 			fillPlayerDetails();
@@ -49,15 +51,15 @@ public class NewPlayerController {
 
 	public void handleBestaetitung() {
 
-		List<String> fehlerhafteFelder = new ArrayList<>();
+		List<String> fehlerhafteFelder = new ArrayList<String>();
 		
 
-		List<String> mussFelder = new ArrayList<>();
+		List<String> mussFelder = new ArrayList<String>();
 		mussFelder.add(benutzernameField.getText());
 		mussFelder.add(passwortField.getText());
 
 
-		List<String> fehlerhafteMussFelder = new ArrayList<>();
+		List<String> fehlerhafteMussFelder = new ArrayList<String>();
 		for (String feld : mussFelder) {
 			if (feld.isEmpty()) {
 				fehlerhafteMussFelder.add(feld);
@@ -82,13 +84,13 @@ public class NewPlayerController {
 
 		} else {
 
-			if (Player != null) { // wenns die person gibt, passt er die werte
+			if (user != null) { // wenns die person gibt, passt er die werte
 									// an
 									// (überschreibt nur)
-				Player.setBenutzername(benutzernameField.getText());
-				Player.setPasswort(passwortField.getText());
+				user.setLogin(benutzernameField.getText());
+				user.setPassword(passwortField.getText());
 			} else {
-				Player Player = new Player(benutzernameField.getText(), // wenns
+				User user = new User(benutzernameField.getText(), // wenns
 																				// die
 																				// person
 																				// nicht
@@ -98,8 +100,9 @@ public class NewPlayerController {
 																				// hier
 																				// eine
 																				// erstellt.
-						passwortField.getText());
-				main.getPlayerData().add(Player);
+						passwortField.getText(), 0, 0);
+		//DEPRICATED		main.getPlayerData().add(user);
+				//TODO Add player to DB
 			}
 			okClicked = true;
 			main.savePlayers();
@@ -108,8 +111,8 @@ public class NewPlayerController {
 	}
 
 	public void fillPlayerDetails() {
-		benutzernameField.setText(Player.getBenutzername());
-		passwortField.setText(Player.getPasswort());
+		benutzernameField.setText(user.getLogin());
+		passwortField.setText(user.getPassword());
 	}
 
 	private boolean validiereZahl(String feld) {

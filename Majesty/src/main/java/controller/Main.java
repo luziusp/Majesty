@@ -4,6 +4,7 @@ import java.io.File;
 
 import ch.majesty.model.Player;
 import ch.majesty.model.Players;
+import ch.majesty.model.XmlHandler;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

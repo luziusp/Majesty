@@ -10,7 +10,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import javafx.collections.ObservableList;
-import model.Player;
+
 
 public class XmlHandler {
 

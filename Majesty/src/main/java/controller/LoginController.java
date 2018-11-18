@@ -43,6 +43,7 @@ public class LoginController {
 	}
 
 	private void doLogin() {
+		//TODO replace placeholder
 		if (usernameField.getText().equals("lukas") && passwordField.getText().equals("lukas")) {
 			main.lobbyWindow();// methode zum stage wechseln bzw. mainwindows
 								// öffnen
