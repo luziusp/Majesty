@@ -3,11 +3,17 @@ package ch.majesty.model;
  * PLU  31.10.2018
  */
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import ch.majesty.userdb.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Player")
 @Getter @Setter @NoArgsConstructor
 public class Player {
 	private User user;
