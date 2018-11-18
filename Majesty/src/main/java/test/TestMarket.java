@@ -1,8 +1,8 @@
-package tests;
+package test;
 
 import java.util.Random;
 
-import ch.majesty.model.Card;
+import ch.majesty.model.CardModel;
 import ch.majesty.model.CardType;
 import ch.majesty.model.Market;
 import ch.majesty.model.Player;
@@ -48,7 +48,7 @@ public class TestMarket {
 	
 	System.out.println("------------------------------");
 	System.out.println("ACTION: Buy a random card ");
-	Card bla = market.buy(rand.nextInt(5), player);
+	CardModel bla = market.buy(rand.nextInt(5), player);
 	
 	
 	

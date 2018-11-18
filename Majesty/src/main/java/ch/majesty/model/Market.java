@@ -65,7 +65,7 @@ public class Market {
 	}
 	
 	
-	public Card buy(int listLocation, Player player) {
+	public CardModel buy(int listLocation, Player player) {
 		
 		if(listLocation <= player.getMc().getCount()) {
 			
@@ -89,7 +89,7 @@ public class Market {
 		
 		
 		
-		Card purchasedCard = new Card(list.get(listLocation), player);
+		CardModel purchasedCard = new CardModel(list.get(listLocation), player);
 		
 		//Remove both entries in costlist and cardlist, pay cost/add bonus meeples 
 		list.remove(listLocation);

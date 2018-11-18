@@ -12,12 +12,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class Card {
+public class CardModel {
 
 	CardType type;
 	Player player;
 	
-	public Card(CardType t, Player buyer) {
+	public CardModel(CardType t, Player buyer) {
 		this.type = t;
 		this.player = buyer;
 		

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane layoutX="1.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1018.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GameController">
+			<children>
+      <ImageView fitHeight="635.0" fitWidth="1036.0" layoutX="-1.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/general/holztisch.jpg" />
+         </image>
+         <viewport>
+            <Rectangle2D height="692.0" width="1111.0" />
+         </viewport>
+      </ImageView>
+				<Region layoutX="-1.0" layoutY="-6.0" prefHeight="72.0" prefWidth="1018.0" styleClass="regione" stylesheets="@style.css" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-6.0" />
+				<Label layoutX="20.0" layoutY="16.0" styleClass="labelWindowTitle" stylesheets="@style.css" text="Majesty - Spiel" textFill="WHITE" AnchorPane.leftAnchor="20.0">
+					<font>
+						<Font name="System Bold" size="20.0" />
+					</font>
+				</Label>
+				<HBox layoutX="884.0" layoutY="673.0" prefHeight="31.0" prefWidth="310.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
+					<children>
+            <Hyperlink accessibleRole="BUTTON" onAction="#spielregelnButton" prefHeight="27.0" prefWidth="100.0" text="Spielregeln" textFill="WHITE" underline="true">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Hyperlink>
+						<Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleAbbrechen" stylesheets="@style.css" text="Abbrechen" textFill="WHITE" />
+						<Button mnemonicParsing="false" onAction="#handleAbmelden" stylesheets="@style.css" text="Abmelden" textFill="WHITE" />
+					</children>
+				</HBox>
+      <VBox layoutX="22.0" layoutY="73.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="247.0" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="73.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0" rotate="180.0" spacing="5.0">
+               <children>
+                  <ImageView fx:id="player2muehle" fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="player2brauerei" fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="player2hexenhaus" fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="player2wachturm" fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="player2kaserne" fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="player2caverne" fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="player2schloss" fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="player2lazarett" fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" rotate="180.0" spacing="5.0">
+               <children>
+                  <ImageView fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/locations/Muehle.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/locations/Brauerei.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/locations/Hexenhaus.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/locations/Wachturm.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/locations/Kaserne.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/locations/Caverne.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/locations/Schloss.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/locations/Lazarett.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/meeples_cards/Meeple_red.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="615.0" spacing="5.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#takeFirstCard">
+                     <graphic>
+                        <ImageView fitHeight="131.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/character_cards/Adlige.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#takeSecondCard">
+                     <graphic>
+                        <ImageView fitHeight="131.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/character_cards/Brauer.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#takeThirdCard">
+                     <graphic>
+                        <ImageView fitHeight="131.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/character_cards/Muellerin.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#takeFourthCard">
+                     <graphic>
+                        <ImageView fitHeight="131.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/character_cards/Wachen.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#takeFifthCard">
+                     <graphic>
+                        <ImageView fitHeight="131.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/character_cards/Wirt.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#takeSixthCard">
+                     <graphic>
+                        <ImageView fitHeight="131.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/character_cards/Soldat.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <ImageView fitHeight="131.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/backs/Back_Green.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="615.0" spacing="5.0">
+               <children>
+                  <ImageView fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/locations/Muehle.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/locations/Brauerei.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/locations/Hexenhaus.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/locations/Wachturm.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/locations/Kaserne.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/locations/Caverne.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/locations/Schloss.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/locations/Lazarett.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/meeples_cards/Meeple.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                  <ImageView fx:id="player1muehle" fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="player1brauerei" fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="player1hexenhaus" fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="player1wachturm" fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="player1kaserne" fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="player1caverne" fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="player1schloss" fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="player1lazarett" fitHeight="100.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+	</children>
+</AnchorPane>
