@@ -22,7 +22,7 @@ public class TestMarket {
 	public static void main(String[] args) {
 
 		
-	Market market = new Market();
+	
 	Players pl = new Players();
 	User user = new User("bla", "blabb", 0, 0);
 	User user2 = new User("bla2", "blabb2", 0, 0);
@@ -31,8 +31,9 @@ public class TestMarket {
 	Player enemy = new Player(user2);
 	
 	pl.getPlayerData().addAll(player, enemy);
+	Market market = new Market(pl);
 	
-	int rounds = 5;
+	int rounds = 14;
 	
 
 	

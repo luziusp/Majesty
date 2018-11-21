@@ -81,17 +81,16 @@ public class CardModel {
 		player.changeScore(this.getMinValue(array));
 	
 	}
-	public void playKnight() {
+	public void playKnight(Players pl) {
 		
 		player.getLoc().changeBarracks(1);
 		System.out.println("Player " + player.getUser().getLogin() + " now has " + player.getLoc().getBarracks() + " Knight(s)");
 		player.changeScore(player.getLoc().getMill() * 3);
 		
-		//Attack all players. the first card from the left goes to the infirmary 
-		//Define playerlist
-		/*
-		 for(Player enemy : GameServer.getPlayers()){
-			 if((enemy != player) && (enemy.getLoc().getGuardhouse() < player.getLoc().getGuardhouse)){
+
+		
+		 for(Player enemy : pl.getPlayerData()){
+			 if((enemy != player) && (enemy.getLoc().getGuardhouse() < player.getLoc().getGuardhouse())){
 			 	
 			 if(enemy.getLoc().getMill() > 0){
 				 enemy.getLoc().changeMill(-1);
@@ -141,8 +140,7 @@ public class CardModel {
 			 	}
 			 }
 		 }
-		 
-		  */
+
 	}
 	
 			
@@ -180,7 +178,7 @@ public class CardModel {
 	
 
 		 
-	public void play() {
+	public void play(Players pl) {
 		
 		
 		
@@ -194,7 +192,7 @@ public class CardModel {
 
 		case GUARD: this.playGuard( );
         break;
-		case KNIGHT: this.playKnight( );
+		case KNIGHT: this.playKnight(pl);
         break;
 		case INNKEEPER: this.playInnkeeper( );
         break;

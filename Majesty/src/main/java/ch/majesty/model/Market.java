@@ -32,6 +32,7 @@ public class Market {
 	 */
 	List<CardType> list = Collections.synchronizedList(new LinkedList<CardType>());
 	List<Integer> meeples = Collections.synchronizedList(new LinkedList<Integer>());
+	Players players;
 	
 	//amount of cards left per type for probability calculation
 	int amountMiller;
@@ -43,7 +44,7 @@ public class Market {
 	int amountNoble;
 	
 	
-	public Market() {
+	public Market(Players players) {
 		
 		//setting amount of cards in game (type green)
 		 amountMiller = 7;
@@ -53,7 +54,7 @@ public class Market {
 		 amountKnight= 2;
 		 amountInnkeeper= 2;
 		 amountNoble= 3;
-
+		 this.players = players;
 		 
 		
 		for(int i = 0; i < 5; i++) {
@@ -66,6 +67,9 @@ public class Market {
 	
 	
 	public CardModel buy(int listLocation, Player player) {
+		try {
+			
+		
 		
 		if(listLocation <= player.getMc().getCount()) {
 			
@@ -99,7 +103,7 @@ public class Market {
 		
 		this.add();
 		
-		purchasedCard.play();
+		purchasedCard.play(players);
 		return purchasedCard;
 		
 	}
@@ -107,13 +111,22 @@ public class Market {
 			return null;
 		}
 		
-		
+		}
+	
+		catch(IndexOutOfBoundsException ex){
+			ex.printStackTrace();
+			return null;
+			
+		}
 	}
 	
 	private void add(){
 		
 		this.meeples.add(0);
-		this.list.add(calcCard());
+		CardType ca = calcCard();
+		if (ca != null) {
+		this.list.add(ca);
+		}
 		
 	}
 	//calculates from stock of cards what the next draw will be;
@@ -122,6 +135,7 @@ public class Market {
 		int total = amountMiller + amountBrewer + amountWitch + amountGuard + amountKnight + amountInnkeeper + amountNoble;
 		
 		Random rand = new Random();
+		if(total > 0) {
 		int randomised = rand.nextInt(total);
 		if(randomised < amountMiller) {
 			result = CardType.MILLER;
@@ -163,7 +177,10 @@ public class Market {
 			}
 		}
 		
-		
+		}
+		else {
+			result = null;
+		}
 		return result;
 	}
 	
