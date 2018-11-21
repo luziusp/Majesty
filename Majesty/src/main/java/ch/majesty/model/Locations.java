@@ -51,4 +51,61 @@ public class Locations {
 	public void changeCastle(int amount) {
 		this.castle += amount;
 	}
+	
+	
+	
+	public boolean isMaxValue(Players players, CardType type) {
+		boolean isMax = true;
+		int thisValue;
+		int compValue = 0;
+		int maxValue=0;
+		
+		for (int i = 1; i < players.getPlayerData().size(); i++) {	
+		switch (type) {
+		case MILLER:
+			thisValue = this.mill;
+			compValue = players.getPlayerData().get(i).getLoc().getMill();
+			break;
+		case BREWER:
+			thisValue = this.brewery;
+			compValue = players.getPlayerData().get(i).getLoc().getBrewery();
+			break;
+		case GUARD:
+			thisValue = this.guardhouse;
+			compValue = players.getPlayerData().get(i).getLoc().getGuardhouse();
+			break;
+		case INNKEEPER:
+			thisValue = this.pub;
+			compValue = players.getPlayerData().get(i).getLoc().getPub();
+			break;
+		case KNIGHT:
+			thisValue = this.barracks;
+			compValue = players.getPlayerData().get(i).getLoc().getBarracks();
+			break;
+		case NOBLE:
+			thisValue = this.castle;
+			compValue = players.getPlayerData().get(i).getLoc().getCastle();
+			break;
+		case WITCH:
+			thisValue = this.cottage;
+			compValue = players.getPlayerData().get(i).getLoc().getCottage();
+			break;
+			
+		default:
+			thisValue = 0;
+			break;
+		}
+		
+		
+    
+	        if ((compValue > maxValue) && (compValue > thisValue)) {
+	           maxValue = compValue ;
+	           isMax = false;
+	        }
+		}	        
+	    
+	    return isMax;
+	}
+	
+	
 }

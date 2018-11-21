@@ -2,19 +2,39 @@ package test;
 
 import java.util.Random;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import ch.majesty.model.CardModel;
 import ch.majesty.model.CardType;
 import ch.majesty.model.Market;
 import ch.majesty.model.Player;
+import ch.majesty.model.Players;
 import ch.majesty.userdb.User;
+import ch.majesty.userdb.UserRepo;
 
 public class TestMarket {
+	
+
+	
+	
 	public static void main(String[] args) {
 
 		
 	Market market = new Market();
-	Player player = new Player(new User("bla", "blabb", 0, 0));
+	Players pl = new Players();
+	User user = new User("bla", "blabb", 0, 0);
+	User user2 = new User("bla2", "blabb2", 0, 0);
+	
+	Player player = new Player(user);
+	Player enemy = new Player(user2);
+	
+	pl.getPlayerData().addAll(player, enemy);
+	
 	int rounds = 5;
+	
+
 	
 	for(int iteration = 0; iteration < rounds; iteration++) {
 		Random rand = new Random();
@@ -76,6 +96,9 @@ public class TestMarket {
 	
 	System.out.println("------------------------------");
 	
+	
+	
+	
 	System.out.println("Rest of cards: ");
 	System.out.println("Brewer: "+market.getAmountBrewer() 
 	+ " / Miller: "+market.getAmountMiller() 
@@ -90,6 +113,10 @@ public class TestMarket {
 	player.resolveMC();
 	
 	System.out.println("------------------------------");
+	
+	CardModel bla2 = market.buy(rand.nextInt(5), enemy);
+	enemy.resolveMC();
 	}
+	System.out.println("Winner: " + pl.calcWinner().getUser().getLogin());
 }
 }

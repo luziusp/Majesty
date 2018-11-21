@@ -18,7 +18,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 public class Market {
-	//TODO: Alles
+	
 	
 	/*
 	 * Note that this implementation is not synchronized. 
@@ -44,17 +44,17 @@ public class Market {
 	
 	
 	public Market() {
-		//TODO Set real amounts for cards
-		//setting amount of cards in game
-		 amountMiller = 5;
-		 amountBrewer= 5;
-		 amountWitch= 5;
-		 amountGuard= 5;
-		 amountKnight= 5;
-		 amountInnkeeper= 5;
-		 amountNoble= 5;
 		
+		//setting amount of cards in game (type green)
+		 amountMiller = 7;
+		 amountBrewer= 4;
+		 amountWitch= 3;
+		 amountGuard= 3;
+		 amountKnight= 2;
+		 amountInnkeeper= 2;
+		 amountNoble= 3;
 
+		 
 		
 		for(int i = 0; i < 5; i++) {
 			meeples.add(0);

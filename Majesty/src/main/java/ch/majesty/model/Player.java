@@ -21,7 +21,6 @@ public class Player {
 	private Locations loc;
 	private Infirmary inf;
 	private int currentScore;
-	private int endScore;
 	private MeepleCard mc;
 	
 	public void changeScore(int i) {
@@ -38,18 +37,19 @@ public class Player {
 		this.user = us;
 		this.yourTurn = false;
 		this.loc = new Locations();
+		this.inf = new Infirmary();
 		this.currentScore =0;
 		this.mc = new MeepleCard();
-		this.endScore =0;
+
 		
 	}
 	
-	public int calcEndScore(){
+	public int calcEndScore(Players pl){
 		
 		int variety= this.calcVar();
 		int infirmary = this.calcInf();
-		int majority = this.calcMaj();
-		
+		int majority = this.calcMaj(pl);
+		System.out.println("Endscore of Player "+ this.getUser().getLogin() +" " + (this.getCurrentScore() + variety  + majority - infirmary));
 		return this.getCurrentScore() + variety  + majority - infirmary;
 		
 	}
@@ -77,6 +77,7 @@ public class Player {
 	private int calcInf() {
 		int inf=0;
 		
+		
 		while(!this.getInf().getPatients().isEmpty()) {
 			this.getInf().getPatients().pop();
 			inf++;
@@ -85,11 +86,10 @@ public class Player {
 		return inf;
 	}
 	
-	private int calcMaj() {
+	private int calcMaj(Players pl) {
 		int maj=0;
 		
-		//TODO: calculate majority score: (write compare function in locations)
-		/*
+		/*NOTE:
 		 * if the player has the most cards of a group add points:
 		 * Mill +10
 		 * Brewery +11
@@ -99,8 +99,30 @@ public class Player {
 		 * pub +15
 		 * castle +16
 		 */
+		if(loc.isMaxValue(pl, CardType.MILLER)) {
+			maj += 10;
+		}
+		if(loc.isMaxValue(pl, CardType.BREWER)) {
+			maj += 11;
+		}
+		if(loc.isMaxValue(pl, CardType.WITCH)) {
+			maj += 12;
+		}
+		if(loc.isMaxValue(pl, CardType.GUARD)) {
+			maj += 13;
+		}
+		if(loc.isMaxValue(pl, CardType.KNIGHT)) {
+			maj += 14;
+		}
+		if(loc.isMaxValue(pl, CardType.INNKEEPER)) {
+			maj += 15;
+		}
+		if(loc.isMaxValue(pl, CardType.NOBLE)) {
+			maj += 16;
+		}
 		
 		return maj;
 	}
+	
 
 }

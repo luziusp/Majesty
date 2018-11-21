@@ -16,6 +16,9 @@ public class Infirmary {
 	public void add(CardType card) {
 		patients.add(card);
 	}
+	public Infirmary() {
+		patients = new Stack<CardType>();
+	}
 	
 	public void heal(Player player) {
 		if(!patients.isEmpty()) {
