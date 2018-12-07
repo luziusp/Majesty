@@ -4,8 +4,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-
-import ch.majesty.userdb.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,9 +15,8 @@ import lombok.Setter;
  * 
  */
 @Getter @Setter
-public class Market {
-	
-	
+public class Market {	
+
 	/*
 	 * Note that this implementation is not synchronized. 
 	 * If multiple threads access a linked list concurrently, and at least one of 
@@ -43,6 +40,8 @@ public class Market {
 	int amountInnkeeper;
 	int amountNoble;
 	
+	int cardsBoughtTotal;
+	
 	
 	public Market(Players players) {
 		
@@ -56,8 +55,10 @@ public class Market {
 		 amountNoble= 3;
 		 this.players = players;
 		 
+		 cardsBoughtTotal = 0;
+		 
 		
-		for(int i = 0; i < 5; i++) {
+		for(int i = 0; i < 6; i++) {
 			meeples.add(0);
 			list.add(this.calcCard());
 		}
@@ -85,13 +86,8 @@ public class Market {
 		//Add meeple for all prior cards, remove from players meeplecard
 		for(int i = 0; i < listLocation; i++) {
 			int sum = meeples.get(i) + 1;
-			meeples.set(i, sum);
-			
-			}
-		
-		
-		
-		
+			meeples.set(i, sum);		
+			}	
 		
 		CardModel purchasedCard = new CardModel(list.get(listLocation), player);
 		
@@ -102,7 +98,7 @@ public class Market {
 		player.getMc().add(bonus - cost);
 		
 		this.add();
-		
+		cardsBoughtTotal ++;
 		purchasedCard.play(players);
 		return purchasedCard;
 		

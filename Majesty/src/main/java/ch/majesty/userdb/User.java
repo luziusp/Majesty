@@ -8,13 +8,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Data
 @Entity
+@Getter
+@Setter
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -24,6 +28,7 @@ public class User {
 	private String password;
 	private int wins;
 	private int losses;
+	
 
 
 public User(String log, String pw, int w, int l) {
@@ -31,5 +36,7 @@ public User(String log, String pw, int w, int l) {
 	this.login = log;
 	this.wins = w;
 	this.losses = l;
+
 }
+
 }

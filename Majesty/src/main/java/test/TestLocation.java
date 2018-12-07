@@ -4,7 +4,10 @@ import ch.majesty.model.CardType;
 import ch.majesty.model.Player;
 import ch.majesty.model.Players;
 import ch.majesty.userdb.User;
-
+import lombok.Getter;
+import lombok.Setter;
+@Getter
+@Setter
 public class TestLocation {
 	public static void main(String[] args) {
 		Player player1 = new Player(new User("1","1",2,2 ));

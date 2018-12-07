@@ -27,8 +27,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.primaryStage = primaryStage;
-		loginWindow(); // beim start wird das loginwindow aufgebaut
+		gameWindow(); // beim start wird das loginwindow aufgebaut
 	}
+	
 
 	public void loginWindow() {
 		try {
