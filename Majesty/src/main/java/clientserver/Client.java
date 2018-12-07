@@ -28,7 +28,9 @@ public class Client extends Thread {
     private Players playerList;
     private Market market;
     private static boolean reset = true;
-    private boolean turn = false;
+    
+    private boolean yourTurn = false;
+    
     private boolean gameStarted = false;
     private boolean isServer = false;
     
@@ -59,10 +61,18 @@ public class Client extends Thread {
 	//Client listening for objects
 	public void run() {
 		while(running) {
-			GameState gs = null;
+			Object obj = null;
 			try {
-				gs = (GameState) input.readObject();
-				handleGS(gs);
+				obj =  input.readObject();
+				if(obj instanceof GameState) {
+				handleGS((GameState)obj);
+				}
+				else {
+					if(obj instanceof Player) {
+						handleEnd((Player) obj);
+					}
+				}
+				
 			}
 			catch(Exception e){
 			e.printStackTrace();
@@ -73,10 +83,13 @@ public class Client extends Thread {
 	//@para
 	public void sendMove(Move move) throws IOException {
 		try {
+			yourTurn = false;
+			//TODO Update GUI
 			this.output = new ObjectOutputStream(servSocket.getOutputStream());
 			this.servSocket = new Socket(servAdress, this.PORT);
 			output.reset();
 			output.writeObject(move);
+			
 
 		}
 		catch(IOException e){
@@ -93,6 +106,8 @@ public class Client extends Thread {
 	public void handleGS(GameState gs) {
 		this.playerList = gs.getPlayers();
 		this.market = gs.getMarket();
+	
+		yourTurn = true;
 		//TODO run update of GUI
 	}
 	
