@@ -16,4 +16,8 @@ public class GameState implements Serializable{
 	Market market;
 	Players players;
 
+	public GameState(Market market, Players players) {
+		this.market = market;
+		this.players = players;
+	}
 }

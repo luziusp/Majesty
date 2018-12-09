@@ -11,7 +11,9 @@ import ch.majesty.model.Players;
 import controller.GameController;
 
 public class Client extends Thread {
-	private static final int PORT = 22022;
+	//Set player
+	
+	private static final int PORT = 5432;
 	
     private static ObjectInputStream input;
     private static ObjectOutputStream output;
@@ -80,14 +82,13 @@ public class Client extends Thread {
 		}
 		
 	}
-	//@para
+
 	public void sendMove(Move move) throws IOException {
 		try {
 			yourTurn = false;
 			//TODO Update GUI
 			this.output = new ObjectOutputStream(servSocket.getOutputStream());
 			this.servSocket = new Socket(servAdress, this.PORT);
-			output.reset();
 			output.writeObject(move);
 			
 
@@ -117,7 +118,9 @@ public class Client extends Thread {
 		}
 		else {
 			// display loser window
+		
 		}
 	}
+	
 	
 }

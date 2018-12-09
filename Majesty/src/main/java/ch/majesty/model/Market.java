@@ -40,7 +40,7 @@ public class Market {
 	int amountInnkeeper;
 	int amountNoble;
 	
-	int cardsBoughtTotal;
+
 	
 	
 	public Market(Players players) {
@@ -55,7 +55,7 @@ public class Market {
 		 amountNoble= 3;
 		 this.players = players;
 		 
-		 cardsBoughtTotal = 0;
+		
 		 
 		
 		for(int i = 0; i < 6; i++) {
@@ -98,12 +98,12 @@ public class Market {
 		player.getMc().add(bonus - cost);
 		
 		this.add();
-		cardsBoughtTotal ++;
+	
 		purchasedCard.play(players);
 		return purchasedCard;
 		
 	}
-		else {
+		else {		
 			return null;
 		}
 		
