@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import ch.majesty.userdb.User;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,7 +16,7 @@ import lombok.Setter;
 @XmlRootElement(name = "Player")
 @Getter @Setter @NoArgsConstructor
 public class Player {
-	private User user;
+	private String user;
 	private boolean yourTurn;
 	private Locations loc;
 	private Infirmary inf;
@@ -25,7 +25,7 @@ public class Player {
 	
 	public void changeScore(int i) {
 		this.currentScore += i;
-		System.out.println(this.user.getLogin() + " score increased by " +i + " to a total of: "+ this.getCurrentScore());
+		System.out.println(this.user + " score increased by " +i + " to a total of: "+ this.getCurrentScore());
 	}
 	
 	public void resolveMC() {
@@ -33,8 +33,8 @@ public class Player {
 	}
 	
 	
-	public Player(User us) {
-		this.user = us;
+	public Player(String user) {
+		this.user = user;
 		this.yourTurn = false;
 		this.loc = new Locations();
 		this.inf = new Infirmary();
@@ -49,7 +49,7 @@ public class Player {
 		int variety= this.calcVar();
 		int infirmary = this.calcInf();
 		int majority = this.calcMaj(pl);
-		System.out.println("Endscore of Player "+ this.getUser().getLogin() +" " + (this.getCurrentScore() + variety  + majority - infirmary));
+		System.out.println("Endscore of Player "+ this.user +" " + (this.getCurrentScore() + variety  + majority - infirmary));
 		return this.getCurrentScore() + variety  + majority - infirmary;
 		
 	}

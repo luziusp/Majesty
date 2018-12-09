@@ -118,7 +118,7 @@ public  class Handler extends Thread{
 			
 			if(output != null) {
 				try {
-					output.writeObject(output);
+					output.writeObject(gameState);
 					output.reset();
 
 				}catch (Exception e){

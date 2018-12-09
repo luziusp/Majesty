@@ -11,9 +11,7 @@ import ch.majesty.model.CardType;
 import ch.majesty.model.Market;
 import ch.majesty.model.Player;
 import ch.majesty.model.Players;
-import ch.majesty.userdb.App;
-import ch.majesty.userdb.User;
-import ch.majesty.userdb.UserRepo;
+
 
 
 public class TestMarket {
@@ -26,12 +24,11 @@ public class TestMarket {
 	
 		
 	Players pl = new Players();
-	User user = new User("bla", "blabb", 0, 0);
-	User user2 = new User("bla2", "blabb2", 0, 0);
+
 	
 	
-	Player player = new Player(user);
-	Player enemy = new Player(user2);
+	Player player = new Player("Hans");
+	Player enemy = new Player("Gustav");
 	
 	pl.getPlayerData().addAll(player, enemy);
 	Market market = new Market(pl);
@@ -121,6 +118,6 @@ public class TestMarket {
 	CardModel bla2 = market.buy(rand.nextInt(5), enemy);
 	enemy.resolveMC();
 	}
-	System.out.println("Winner: " + pl.calcWinner().getUser().getLogin());
+	System.out.println("Winner: " + pl.calcWinner().getUser());
 }
 }

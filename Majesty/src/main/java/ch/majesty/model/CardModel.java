@@ -1,6 +1,6 @@
 package ch.majesty.model;
 
-import ch.majesty.userdb.User;
+
 
 /*
  * PLU  31.10.2018
@@ -29,13 +29,13 @@ public class CardModel {
 	
 	public void playMiller() {
 		player.getLoc().changeMill(1);
-		System.out.println("Player " + player.getUser().getLogin() + " now has " + player.getLoc().getMill() + " Miller(s)");
+		System.out.println("Player " + player.getUser() + " now has " + player.getLoc().getMill() + " Miller(s)");
 		player.changeScore(player.getLoc().getMill() *2);
 	}
 	
 	public void playBrewer() {
 		player.getLoc().changeBrewery(1);
-		System.out.println("Player " + player.getUser().getLogin() + " now has " + player.getLoc().getBrewery() + " Brewers(s)");
+		System.out.println("Player " + player.getUser() + " now has " + player.getLoc().getBrewery() + " Brewers(s)");
 		player.changeScore(player.getLoc().getBrewery() *2);
 		player.getMc().add(player.getLoc().getBrewery() *1);
 		
@@ -57,7 +57,7 @@ public class CardModel {
 		
 		int array[] = new int[3];
 		player.getLoc().changeCottage(1);
-		System.out.println("Player " + player.getUser().getLogin() + " now has " + player.getLoc().getCottage() + " Witch(es)");
+		System.out.println("Player " + player.getUser() + " now has " + player.getLoc().getCottage() + " Witch(es)");
 		
 		//cottage gives 2 points per combo of miller, brewer, and witch
 		//--> smallest value of these three * 2
@@ -71,7 +71,7 @@ public class CardModel {
 	public void playGuard() {
 		int array[] = new int[3];
 		player.getLoc().changeGuardhouse(1);
-		System.out.println("Player " + player.getUser().getLogin() + " now has " + player.getLoc().getGuardhouse() + " Guard(s)");
+		System.out.println("Player " + player.getUser() + " now has " + player.getLoc().getGuardhouse() + " Guard(s)");
 		
 		//guardhouse gives 2 points per combo of miller, brewer, and witch
 		//--> smallest value of these three * 2
@@ -84,7 +84,7 @@ public class CardModel {
 	public void playKnight(Players pl) {
 		
 		player.getLoc().changeBarracks(1);
-		System.out.println("Player " + player.getUser().getLogin() + " now has " + player.getLoc().getBarracks() + " Knight(s)");
+		System.out.println("Player " + player.getUser() + " now has " + player.getLoc().getBarracks() + " Knight(s)");
 		player.changeScore(player.getLoc().getMill() * 3);
 		
 
@@ -147,7 +147,7 @@ public class CardModel {
 		
 	public void playInnkeeper() {
 		player.getLoc().changePub(1);
-		System.out.println("Player " + player.getUser().getLogin() + " now has " + player.getLoc().getPub() + " Innkeeper(s)");
+		System.out.println("Player " + player.getUser() + " now has " + player.getLoc().getPub() + " Innkeeper(s)");
 		player.changeScore(player.getLoc().getPub() *2);
 		
 		
@@ -157,7 +157,7 @@ public class CardModel {
 	}
 	public void playNoble() {
 		player.getLoc().changeCastle(1);
-		System.out.println("Player " + player.getUser().getLogin() + " now has " + player.getLoc().getCastle() + " Noble(s)");
+		System.out.println("Player " + player.getUser() + " now has " + player.getLoc().getCastle() + " Noble(s)");
 		player.changeScore(player.getLoc().getCastle() *5);
 		player.getMc().add(player.getLoc().getCastle() *1);
 	}

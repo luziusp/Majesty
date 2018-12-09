@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.List;
 
 import ch.majesty.model.Market;
 import ch.majesty.model.Player;
@@ -24,6 +25,8 @@ public class Client extends Thread {
     private boolean valid = false;
     private boolean checked = false;
     private GameController gc;
+    private Players players;
+  
 
     
 
@@ -71,10 +74,15 @@ public class Client extends Thread {
 				}
 				else {
 					if(obj instanceof Player) {
-						handleEnd((Player) obj);
+						handleAdd((Player) obj);
+					}
+				
+				else {
+					if(obj instanceof String) {
+						handleEnd((String) obj);
 					}
 				}
-				
+				}
 			}
 			catch(Exception e){
 			e.printStackTrace();
@@ -112,8 +120,8 @@ public class Client extends Thread {
 		//TODO run update of GUI
 	}
 	
-	public void handleEnd(Player winner) {
-		if(winner.getUser() == this.thisPlayer.getUser()) {
+	public void handleEnd(String winner) {
+		if(winner == this.thisPlayer.getUser()) {
 			// Display winner window
 		}
 		else {
@@ -122,5 +130,7 @@ public class Client extends Thread {
 		}
 	}
 	
-	
+	public void handleAdd(Player player) {
+		players.getPlayerData().add(player);
+	}
 }
