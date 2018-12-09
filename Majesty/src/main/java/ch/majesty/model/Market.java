@@ -30,6 +30,7 @@ public class Market {
 	List<CardType> list = Collections.synchronizedList(new LinkedList<CardType>());
 	List<Integer> meeples = Collections.synchronizedList(new LinkedList<Integer>());
 	Players players;
+	Player currentOwner;
 	
 	//amount of cards left per type for probability calculation
 	int amountMiller;
@@ -54,6 +55,7 @@ public class Market {
 		 amountInnkeeper= 2;
 		 amountNoble= 3;
 		 this.players = players;
+		 currentOwner = players.getPlayerData().get(1);
 		 
 		
 		 
@@ -79,7 +81,7 @@ public class Market {
 		int cost = listLocation ;
 		int bonus = meeples.get(listLocation);
 		
-		//TODO: check if enough meeple for buyable
+		//TODO: check if enough meeple for buyable and give feedback
 
 		
 		

@@ -12,37 +12,30 @@ import ch.majesty.model.Player;
 import ch.majesty.model.Players;
 import controller.GameController;
 
-//Tutorial von http://www2.math.uni-wuppertal.de/~schaefer/jv/haupt/node102.html
+
 
 public class Server extends Thread{
 	//TODO: Set player correctly
 	
 	private static final int PORT = 5432;
 	
-	private static String servAdress;
 	private static ServerSocket servSocket;
 	private static Thread thread;
 	
-	private boolean yourTurn = true;
-	private boolean gameStarted = false;
-	private boolean isServer = false;
-	private boolean running = false;
-	private boolean valid = false;
-	private boolean checked = false;
+
 	
 	private GameController gc;
-	
-	private static boolean reset = true;
 
 	private Players playerList;
 	private Market market;
-	private Player thisPlayer;
-
+	
 	//public static void main(String[] args) throws Exception {
 
 	//servSocket = new ServerSocket(PORT);
     public Server() throws Exception{
         servSocket = new ServerSocket(PORT);
+
+        
         try {
             while (true){
                 Handler handler = new Handler(servSocket.accept());
@@ -87,8 +80,11 @@ public  class Handler extends Thread{
 					if (o instanceof Move) {
 							handleMove((Move) o);
 							actualizeGame();
-							break;
 					}
+					if (o instanceof Player) {
+							playerList.getPlayerData().add((Player) o);
+						
+				}
 				}catch (Exception e) {
 
 					break;
@@ -158,7 +154,7 @@ public  class Handler extends Thread{
 	private void handleMove(Move move){
 		market.buy(move.getCardPlayed(), move.getPlayer());
 		//TODO GUI updaten	
-		yourTurn = true;
+		
 	}
 
 }

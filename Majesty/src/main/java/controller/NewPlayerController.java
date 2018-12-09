@@ -21,10 +21,11 @@ public class NewPlayerController {
 
 	private Stage stage;
 	private Main main;
+	private User user;
 	private boolean okClicked = false;
 
 	public void setPlayer(Player player) {
-		
+		this.user = player.getUser();
 		if (player != null) { // wenn wirklich eine person dahinter ist, dann
 								// übernimmt er alle textfelder von der
 								// ausgewählten person.

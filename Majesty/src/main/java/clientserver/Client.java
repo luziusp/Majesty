@@ -22,8 +22,6 @@ public class Client extends Thread {
     private static Socket servSocket;
     private static Thread thread;
     private Player thisPlayer;
-    private boolean valid = false;
-    private boolean checked = false;
     private GameController gc;
     private Players players;
   
@@ -32,6 +30,7 @@ public class Client extends Thread {
 
     private Players playerList;
     private Market market;
+    
     private static boolean reset = true;
     
     private boolean yourTurn = false;
@@ -42,12 +41,13 @@ public class Client extends Thread {
     private boolean running = false;
 
 
-
-	public Client(String serverAdress, String username){
+    // After loging in, this client is created. GUI send adress and String
+	public Client( String username, String serverAdress){
 		try {
 			this.servAdress = serverAdress;
-		//	this.playerList = players;
 			this.input = new ObjectInputStream(servSocket.getInputStream());
+			
+			thisPlayer = new Player(username);
 			
 			running = true;
 			
@@ -128,6 +128,25 @@ public class Client extends Thread {
 			// display loser window
 		
 		}
+	}
+	private void sendThisPlayer()  throws IOException {
+			try {
+				yourTurn = false;
+				//TODO Update GUI
+				this.output = new ObjectOutputStream(servSocket.getOutputStream());
+				this.servSocket = new Socket(servAdress, this.PORT);
+				output.writeObject(thisPlayer);
+				
+
+			}
+			catch(IOException e){
+				e.printStackTrace();
+				sendThisPlayer();
+			}	
+			finally {
+				servSocket.close();
+				output.close();
+			}
 	}
 	
 	public void handleAdd(Player player) {
