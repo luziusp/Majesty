@@ -11,13 +11,15 @@ import ch.majesty.model.Market;
 import ch.majesty.model.Player;
 import ch.majesty.model.Players;
 import controller.GameController;
+import lombok.Getter;
+import lombok.Setter;
 
 
-
+@Getter @Setter
 public class Server extends Thread{
 	//TODO: Set player correctly
 	
-	private static final int PORT = 5432;
+	private static final int PORT = 22322;
 	
 	private static ServerSocket servSocket;
 	private static Thread thread;
@@ -29,17 +31,19 @@ public class Server extends Thread{
 	private Players playerList;
 	private Market market;
 	
-	//public static void main(String[] args) throws Exception {
 
-	//servSocket = new ServerSocket(PORT);
     public Server() throws Exception{
         servSocket = new ServerSocket(PORT);
+        System.out.println("Server started");
+        playerList = new Players();
 
         
         try {
             while (true){
                 Handler handler = new Handler(servSocket.accept());
+                System.out.println("Handler created");
                 handler.start();
+                System.out.println("Handler Started");
             }
         } catch (Exception e){
             e.printStackTrace();
@@ -80,9 +84,18 @@ public  class Handler extends Thread{
 					if (o instanceof Move) {
 							handleMove((Move) o);
 							actualizeGame();
+							input.reset();
 					}
 					if (o instanceof Player) {
 							playerList.getPlayerData().add((Player) o);
+							if(playerList.getPlayerData().get(1) != null) {
+								playerList.getPlayerData().get(1).setYourTurn(true);
+								market = new Market(playerList);
+								System.out.println("Market created");
+								actualizeGame();
+							}
+							System.out.println("Player added");
+							input.reset();
 						
 				}
 				}catch (Exception e) {

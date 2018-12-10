@@ -4,11 +4,13 @@ package ch.majesty.model;
  */
 
 
+import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.Setter;
 //TODO Make observable to set counts in GUI 
 @Getter @Setter
-public class Locations {
+public class Locations implements Serializable{
 	int mill;
 	int brewery;
 	int cottage;

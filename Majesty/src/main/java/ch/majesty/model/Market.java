@@ -1,5 +1,6 @@
 package ch.majesty.model;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,7 +16,7 @@ import lombok.Setter;
  * 
  */
 @Getter @Setter
-public class Market {	
+public class Market implements Serializable {	
 
 	/*
 	 * Note that this implementation is not synchronized. 
@@ -181,6 +182,18 @@ public class Market {
 		}
 		return result;
 	}
+	
+	public String printCards() {
+		
+		StringBuilder board1 = new StringBuilder();
+		for(CardType cards : getList()){
+		board1.append(cards.toString()+ " / ");
+		}
+		
+		return board1.toString();
+		
+	}
+	
 	
 }
 

@@ -3,6 +3,8 @@ package ch.majesty.model;
  * PLU  31.10.2018
  */
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,7 +17,7 @@ import lombok.Setter;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Player")
 @Getter @Setter @NoArgsConstructor
-public class Player {
+public class Player implements Serializable{
 	private String user;
 	private boolean yourTurn;
 	private Locations loc;

@@ -3,6 +3,7 @@ package ch.majesty.model;
  * PLU  31.10.2018
  */
 
+import java.io.Serializable;
 import java.util.Stack;
 
 
@@ -10,7 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class Infirmary {
+public class Infirmary implements Serializable {
 	private Stack<CardType> patients;
 	
 	public void add(CardType card) {

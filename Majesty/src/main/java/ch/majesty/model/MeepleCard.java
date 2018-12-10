@@ -1,5 +1,6 @@
 package ch.majesty.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import lombok.Getter;
@@ -10,7 +11,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class MeepleCard {
+public class MeepleCard implements Serializable{
 	int count;
 	final int MAXMEEPLE=5;
 	
