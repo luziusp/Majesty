@@ -74,18 +74,12 @@ public class Market implements Serializable {
 		try {
 			
 		
-		
+		//TODO: check if enough meeple for buyable and give feedback
 		if(listLocation <= player.getMc().getCount()) {
 			
-		
-		//reminder: location 0 on array = price 0. Do not change to +1!
-		int cost = listLocation ;
-		int bonus = meeples.get(listLocation);
-		
-		//TODO: check if enough meeple for buyable and give feedback
-
-		
-		
+			int cost = listLocation ;
+			int bonus = meeples.get(listLocation);
+	
 		//Add meeple for all prior cards, remove from players meeplecard
 		for(int i = 0; i < listLocation; i++) {
 			int sum = meeples.get(i) + 1;
@@ -100,7 +94,7 @@ public class Market implements Serializable {
 		
 		player.getMc().add(bonus - cost);
 		
-		this.add();
+		this.addNewCard();
 	
 		purchasedCard.play(players);
 		return purchasedCard;
@@ -119,7 +113,7 @@ public class Market implements Serializable {
 		}
 	}
 	
-	private void add(){
+	private void addNewCard(){
 		
 		this.meeples.add(0);
 		CardType ca = calcCard();

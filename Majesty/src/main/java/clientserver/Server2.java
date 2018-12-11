@@ -1,10 +1,8 @@
 package clientserver;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Collections;
@@ -22,7 +20,7 @@ import lombok.Setter;
  *  
  */
 @Getter @Setter
-public class Server extends Thread{
+public class Server2 extends Thread{
 	//TODO: Set player correctly
 	
 	private static final int PORT = 22322;
@@ -39,24 +37,28 @@ public class Server extends Thread{
 	private Market market;
 	
 
-    public Server() throws Exception{
+    public Server2() throws Exception{
         servSocket = new ServerSocket(PORT);
         System.out.println("Server started");
         playerList = new Players();
 
-        
+        while (true){ 
+        	Socket s = null;
         try {
-            while (true){
-                Handler handler = new Handler(servSocket.accept());
-                System.out.println("Handler created");
-                handler.start();
-                System.out.println("Handler Started");
-            }
-        } catch (Exception e){
+           s = servSocket.accept();
+           
+           ObjectInputStream input = new ObjectInputStream(s.getInputStream());
+           ObjectOutputStream output = new ObjectOutputStream(s.getOutputStream());     
+           Thread t = new Handler(s, input, output);
+           t.start();
+        
+        }
+         catch (Exception e){
+        	 s.close();
             e.printStackTrace();
         }
     }
-
+    }
 
 
 public  class Handler extends Thread{
@@ -64,10 +66,8 @@ public  class Handler extends Thread{
 	private String name;
 	private ObjectInputStream input;
 	private ObjectOutputStream output;
-	private InputStreamReader reader;
-	private OutputStreamWriter writer;
 
-	public Handler(Socket socket){
+	public Handler(Socket socket, ObjectInputStream input, ObjectOutputStream output){
 		this.socket = socket;
 		
 	}
@@ -77,9 +77,6 @@ public  class Handler extends Thread{
 		try {
 			 input = new ObjectInputStream(socket.getInputStream());
 	         output = new ObjectOutputStream(socket.getOutputStream());
-	         writer = new OutputStreamWriter(output);
-	         reader = new InputStreamReader(input);
-	         
 			Object o = new Object();
 
 			while(running) {

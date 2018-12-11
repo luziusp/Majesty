@@ -5,13 +5,17 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.List;
 
 import ch.majesty.model.Market;
 import ch.majesty.model.Player;
 import ch.majesty.model.Players;
 import controller.GameController;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter @Setter
 public class Client extends Thread {
 	//Set player
 	
@@ -20,7 +24,7 @@ public class Client extends Thread {
     private static ObjectInputStream input;
     private static ObjectOutputStream output;
     private static String servAdress;
-    private static Socket servSocket;
+    private static Socket socket;
     private static Thread thread;
     private Player thisPlayer;
     private GameController gc;
@@ -47,18 +51,18 @@ public class Client extends Thread {
 		try {
 			System.out.println("Creating Client");
 			this.servAdress = serverAdress;
-			servSocket = new Socket(servAdress, PORT);
+			socket = new Socket(servAdress, PORT);
 			
-			this.output = new ObjectOutputStream(servSocket.getOutputStream());	
-			this.input = new ObjectInputStream(servSocket.getInputStream());
+			this.output = new ObjectOutputStream(socket.getOutputStream());	
+			this.input = new ObjectInputStream(socket.getInputStream());
 				
 			thisPlayer = new Player(username);
-			
 			this.start();
 			running = true;
 			sendThisPlayer();
 			System.out.println("Player created on client and sent");
-			servSocket.close();
+			
+			socket.close();
 			input.close();
 			output.close();
 			
@@ -79,11 +83,14 @@ public class Client extends Thread {
 		while(running) {
 			Object obj = null;
 			try {
-				servSocket = new Socket(servAdress, PORT);
-				input = new ObjectInputStream(servSocket.getInputStream());	
+				socket = new Socket(servAdress, PORT);
+				output = new ObjectOutputStream(socket.getOutputStream());	
+				input = new ObjectInputStream(socket.getInputStream());	
 				obj =  input.readObject();
+				
 				input.close();
-				servSocket.close();
+				socket.close();
+				
 				if(obj instanceof GameState) {
 				handleGS((GameState)obj);
 				}
@@ -98,6 +105,9 @@ public class Client extends Thread {
 					}
 				}
 				}
+			}
+			catch (SocketException e) {
+                e.printStackTrace();       
 			}
 			catch (EOFException e) {
                 e.printStackTrace();
@@ -114,8 +124,8 @@ public class Client extends Thread {
 		try {
 			thisPlayer.setYourTurn(false); 
 			//TODO Update GUI
-			this.output = new ObjectOutputStream(servSocket.getOutputStream());
-			this.servSocket = new Socket(servAdress, this.PORT);
+			this.output = new ObjectOutputStream(socket.getOutputStream());
+			this.socket = new Socket(servAdress, this.PORT);
 			output.writeObject(move);
 			
 
@@ -151,7 +161,7 @@ public class Client extends Thread {
 			try {
 				
 		//      this.output = new ObjectOutputStream(servSocket.getOutputStream());
-				this.servSocket = new Socket(servAdress, this.PORT);
+				this.socket = new Socket(servAdress, this.PORT);
 				output.writeObject(thisPlayer);
 				
 
@@ -161,8 +171,7 @@ public class Client extends Thread {
 				sendThisPlayer();
 			}	
 			finally {
-			servSocket.close();
-			output.close();
+
 			}
 	}
 	
