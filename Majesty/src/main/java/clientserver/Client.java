@@ -12,6 +12,7 @@ import ch.majesty.model.Market;
 import ch.majesty.model.Player;
 import ch.majesty.model.Players;
 import controller.GameController;
+import javafx.collections.ObservableList;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,7 +29,7 @@ public class Client extends Thread {
     private static Thread thread;
     private Player thisPlayer;
     private GameController gc;
-    private Players players;
+    
   
 
     
@@ -63,10 +64,10 @@ public class Client extends Thread {
 
 
 			sendThisPlayer();
-
+/* Test
             Move m = new Move(1,thisPlayer);
             sendMove(m);
-
+*/
 			System.out.println("Player created on client and sent");
 
 			
@@ -156,7 +157,7 @@ public class Client extends Thread {
 	}
 	
 	public void handleGS(GameState gs) {
-		this.playerList = gs.getPlayers();
+		this.playerList =gs.getPlayers();
 		this.market = gs.getMarket();
 	
 		yourTurn = true;
@@ -188,6 +189,6 @@ public class Client extends Thread {
 	}
 	
 	public void handleAdd(Player player) {
-		players.getPlayerData().add(player);
+		playerList.getPlayerData().add(player);
 	}
 }

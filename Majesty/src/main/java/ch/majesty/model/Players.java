@@ -1,5 +1,9 @@
 package ch.majesty.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -14,24 +18,26 @@ import lombok.Setter;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Players")
 
-public class Players {
+public class Players implements Serializable {
 
 	@XmlElement(name = "Player", type = Player.class)
-	private ObservableList<Player> playerData = FXCollections.observableArrayList();
+	private ArrayList<Player> playerData;
 
 	public Players() {
-
+		this.playerData = new  ArrayList<Player>();
 	}
+	
 
-	public Players(ObservableList<Player> PlayerData) {
+
+	public Players(ArrayList<Player> PlayerData) {
 		this.playerData = PlayerData;
 	}
 
-	public ObservableList<Player> getPlayersData() {
+	public ArrayList<Player> getPlayersData() {
 		return playerData;
 	}
 
-	public void setPlayerData(ObservableList<Player> PlayerData) {
+	public void setPlayerData(ArrayList<Player> PlayerData) {
 		this.playerData = PlayerData;
 	}
 	

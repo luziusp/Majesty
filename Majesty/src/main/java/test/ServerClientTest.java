@@ -10,11 +10,6 @@ public class ServerClientTest {
 		
 		StarterHelp sh = new StarterHelp();
 		sh.start();
-	
-		
-		
-	
-
 
 	}
 

@@ -35,8 +35,8 @@ public class Server extends Thread{
 	
 	private GameController gc;
 
-	private Players playerList;
-	private Market market;
+	private static Players playerList;
+	private static Market market;
 	
 
     public Server() throws Exception{
@@ -99,16 +99,19 @@ public  class Handler extends Thread{
 					}
 					if (o instanceof Player) {
                         //Commented out for testing
-							if(playerList.getPlayerData().size() < MAX_PLAYERS - 1) {
+							if(playerList.getPlayerData().size() < MAX_PLAYERS) {
 							playerList.getPlayerData().add((Player) o);
+							System.out.println("Player added");
+							System.out.println("playersize "+ playerList.getPlayerData().size());
 							}
 							if(playerList.getPlayerData().size() == MAX_PLAYERS) {
 								playerList.getPlayerData().get(1).setYourTurn(true);
 								market = new Market(playerList);
 								System.out.println("Market created");
-								output.writeObject(actualizeGame());
+								GameState gs = actualizeGame();
+								
 							}
-							System.out.println("Player added");
+							
 
 				}
 				}catch (Exception e) {
