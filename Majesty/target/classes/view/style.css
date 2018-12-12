@@ -31,3 +31,11 @@
 .labelLogin {
 	-fx-font-weight: bold;
 }
+
+.table-view .column-header-background{
+    -fx-background-color: #7EC0EE;
+}
+
+.table-view{
+   -fx-background-color: transparent;
+}

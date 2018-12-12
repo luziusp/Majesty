@@ -1,10 +1,14 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
@@ -16,9 +20,7 @@ import javafx.stage.Stage;
 public class LoginController {
 
 	@FXML
-	private TextField usernameField;
-	@FXML
-	private TextField passwordField;
+	private TextField usernameField, ipAdressField, portField;
 
 
 	private Main main;
@@ -26,7 +28,29 @@ public class LoginController {
 
 	public void setMain(Main main) {
 		this.main = main;
-		passwordField.setOnKeyPressed(new EventHandler<Event>() {
+		usernameField.setOnKeyPressed(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event event) {
+				KeyEvent keyEvent = (KeyEvent) event;
+				if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+					doLogin();
+				}
+			}
+		});
+		
+		ipAdressField.setOnKeyPressed(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event event) {
+				KeyEvent keyEvent = (KeyEvent) event;
+				if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+					doLogin();
+				}
+			}
+		});
+		
+		portField.setOnKeyPressed(new EventHandler<Event>() {
 
 			@Override
 			public void handle(Event event) {
@@ -43,19 +67,47 @@ public class LoginController {
 	}
 
 	private void doLogin() {
-		//TODO replace placeholder
-		if (usernameField.getText().equals("lukas") && passwordField.getText().equals("lukas")) {
-			main.lobbyWindow();// methode zum stage wechseln bzw. mainwindows
-								// öffnen
+		List<String> fehlerhafteFelder = new ArrayList<>();
+		
+
+		List<String> mussFelder = new ArrayList<>();
+		mussFelder.add(usernameField.getText());
+		mussFelder.add(ipAdressField.getText());
+		mussFelder.add(portField.getText());
+		
+		List<String> fehlerhafteMussFelder = new ArrayList<>();
+		for (String feld : mussFelder) {
+			if (feld.isEmpty()) {
+				fehlerhafteMussFelder.add(feld);
+			}
+		}
+		
+		if (!fehlerhafteMussFelder.isEmpty()) {
+			String fehlerTextMuss = "Foldende Felder müssen noch gesetzt werden: \n\n";
+
+			if (usernameField.getText().isEmpty()) {
+				fehlerTextMuss = fehlerTextMuss + "Benutzername\n";
+			}
+			if (ipAdressField.getText().isEmpty()) {
+				fehlerTextMuss = fehlerTextMuss + "IP Adresse\n";
+			}
+			if (portField.getText().isEmpty()) {
+				fehlerTextMuss = fehlerTextMuss + "Port\n";
+			}
+			fehlerhafteFelder(fehlerTextMuss);
+		} else if (!fehlerhafteFelder.isEmpty()) {
+			String fehlerTextZahl = "Folgende Felder müssen eine Ganzzahl sein: \n";
+			
+			fehlerhafteFelder(fehlerTextZahl);
+
+
 		} else {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText("Login fehlgeschlagen!");
-			alert.setContentText("Ungültiger Benutzername oder Passwort! Bitte versuchen Sie es erneut.");
-			alert.showAndWait();
+			main.gameWindow();// methode zum stage wechseln bzw. gamewindows
+			// öffnen
 		}
 		usernameField.clear();
-		passwordField.clear();
+		ipAdressField.clear();
+		portField.clear();
 	}
 
 	@FXML
@@ -79,17 +131,24 @@ public class LoginController {
 		Alert alert = new Alert (AlertType.INFORMATION);
 		alert.setTitle("Majesty - Hilfe");
 		alert.setHeaderText("Hilfe");
-		alert.setContentText("Bitte melden Sie sich mittels Benutzername und Passwort an. Falls Sie noch kein Benutzerprofil besitzen, dann können Sie dies unter dem Link 'Registrieren' eröffnen. Wir wünschen Ihnen viel Spass und Glück!");
+		alert.setContentText("Wir benötigen einen Benutzername, IP-Adresse und Port, um ein Spiel zu starten. Wir wünschen Ihnen viel Spass und Glück!");
 		alert.showAndWait();
 }
 	
-	
-	public void registrierenButton() {
-		main.newPlayerWindow();
-	}
 
 	public void setStage(Stage stage) {
 		this.stage = stage;
+	}
+	
+	private void fehlerhafteFelder(String fehlerText) {
+		Alert alert = new Alert(AlertType.ERROR);
+		DialogPane dialogPane = alert.getDialogPane();
+		dialogPane.getStylesheets().add(getClass().getResource("/view/style.css").toExternalForm());
+		dialogPane.getStyleClass().add("context-menu");
+		alert.setTitle("Fehler");
+		alert.setHeaderText("");
+		alert.setContentText(fehlerText);
+		alert.showAndWait();
 	}
 
 }

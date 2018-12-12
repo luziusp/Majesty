@@ -14,7 +14,7 @@ public class Clientservertest2 {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(client2.getMarket().printCards());
+		
 
 		
 		

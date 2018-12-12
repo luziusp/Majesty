@@ -77,8 +77,7 @@ public  class Handler extends Thread{
 		try {
 			 input = new ObjectInputStream(socket.getInputStream());
 	         output = new ObjectOutputStream(socket.getOutputStream());
-	         writer = new OutputStreamWriter(output);
-	         reader = new InputStreamReader(input);
+
 	         
 			Object o = new Object();
 
@@ -87,17 +86,19 @@ public  class Handler extends Thread{
 					try {
 						o = input.readObject();	
 					}catch (Exception e) {
+                        // Example: Object not fully sent
+                        // This should be handled
+						continue;
 					}
 
-					if (o == null) {
-						return;
-					}
 					if (o instanceof Move) {
-							handleMove((Move) o);
-							actualizeGame();
-							input.reset();
+							System.out.print("Move");
+                        //Commented out for testing
+							//handleMove((Move) o);
+							//actualizeGame();
 					}
 					if (o instanceof Player) {
+                        //Commented out for testing
 							if(playerList.getPlayerData().size() < MAX_PLAYERS - 1) {
 							playerList.getPlayerData().add((Player) o);
 							}
@@ -108,11 +109,10 @@ public  class Handler extends Thread{
 								output.writeObject(actualizeGame());
 							}
 							System.out.println("Player added");
-							input.reset();
-						
+
 				}
 				}catch (Exception e) {
-
+					e.printStackTrace();
 					break;
 				}
 			}
@@ -121,7 +121,12 @@ public  class Handler extends Thread{
 		}finally {
 			if (output != null) {		
 			try {
-				socket.close();
+                // I think sockets can be clsoed here?
+                // Close serverSocket here as well?
+				//socket.close();
+                //servSocket.close();
+                //input.close();
+                //output.close();
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -173,8 +178,10 @@ public  class Handler extends Thread{
 		
 		}	
 		finally {
-			servSocket.close();
-			output.close();
+            // Pretty sure we dont need to close the serversocket/input/output here
+            // -> only when game ends after while(running) loop ends
+/*			servSocket.close();
+			output.close();*/
 			input.close();
 		}
 	}
@@ -191,8 +198,10 @@ public  class Handler extends Thread{
 			
 		}	
 		finally {
-			servSocket.close();
-			output.close();
+            // Pretty sure we dont need to close the serversocket/input/output here
+            // -> only when game ends after while(running) loop ends
+/*			servSocket.close();
+			output.close();*/
 			running = false;
 			
 		}

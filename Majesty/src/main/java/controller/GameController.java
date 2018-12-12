@@ -62,9 +62,6 @@ public class GameController {
 																					// überschrieben!
 	}
 
-	public void handleNew() {
-		main.newPlayerWindow();
-	}
 
 	public void handleEdit() {
 
@@ -119,9 +116,9 @@ public class GameController {
 	
 	
 
-	public void handleAbbrechen() {
+	public void handleBeenden() {
 		stage.close();
-		main.lobbyWindow();
+		System.exit(0);
 	}
 
 	public void handleAbmelden() {

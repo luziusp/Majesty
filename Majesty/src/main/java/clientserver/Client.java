@@ -53,18 +53,22 @@ public class Client extends Thread {
 			this.servAdress = serverAdress;
 			socket = new Socket(servAdress, PORT);
 			
-			this.output = new ObjectOutputStream(socket.getOutputStream());	
-			this.input = new ObjectInputStream(socket.getInputStream());
+			output = new ObjectOutputStream(socket.getOutputStream());
+			input = new ObjectInputStream(socket.getInputStream());
 				
 			thisPlayer = new Player(username);
 			this.start();
 			running = true;
+
+
+
 			sendThisPlayer();
+
+            Move m = new Move(1,thisPlayer);
+            sendMove(m);
+
 			System.out.println("Player created on client and sent");
-			
-			socket.close();
-			input.close();
-			output.close();
+
 			
 		}catch (Exception e) {
 			running = false;
@@ -83,18 +87,22 @@ public class Client extends Thread {
 		while(running) {
 			Object obj = null;
 			try {
-				socket = new Socket(servAdress, PORT);
-				output = new ObjectOutputStream(socket.getOutputStream());	
-				input = new ObjectInputStream(socket.getInputStream());	
-				obj =  input.readObject();
-				
+
+				try {
+					obj =  input.readObject();
+
+				} catch (EOFException e) {
+
+				}
+/*
 				input.close();
-				socket.close();
+				socket.close();*/
 				
 				if(obj instanceof GameState) {
-				handleGS((GameState)obj);
+					handleGS((GameState)obj);
 				}
 				else {
+
 					if(obj instanceof Player) {
 						handleAdd((Player) obj);
 					}
@@ -102,6 +110,7 @@ public class Client extends Thread {
 				else {
 					if(obj instanceof String) {
 						handleEnd((String) obj);
+
 					}
 				}
 				}
@@ -116,19 +125,25 @@ public class Client extends Thread {
 			catch(Exception e){
 			e.printStackTrace();
 			}
+
 		}
-		
+
+		try {
+			socket.close();
+			input.close();
+			output.close();
+		} catch (Exception e) {
+			System.out.println("Error closing socket or Input/Outputstreams");
+			e.printStackTrace();
+		}
 	}
 
 	public void sendMove(Move move) throws IOException {
 		try {
 			thisPlayer.setYourTurn(false); 
 			//TODO Update GUI
-			this.output = new ObjectOutputStream(socket.getOutputStream());
-			this.socket = new Socket(servAdress, this.PORT);
 			output.writeObject(move);
-			
-
+			System.out.print("SENT MOVE");
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -159,11 +174,8 @@ public class Client extends Thread {
 	}
 	private void sendThisPlayer()  throws IOException {
 			try {
-				
-		//      this.output = new ObjectOutputStream(servSocket.getOutputStream());
-				this.socket = new Socket(servAdress, this.PORT);
 				output.writeObject(thisPlayer);
-				
+				System.out.print("SENT PLAYER");
 
 			}
 			catch(IOException e){
@@ -171,7 +183,7 @@ public class Client extends Thread {
 				sendThisPlayer();
 			}	
 			finally {
-
+				output.reset();
 			}
 	}
 	
