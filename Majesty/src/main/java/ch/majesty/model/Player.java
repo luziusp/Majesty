@@ -3,6 +3,7 @@ package ch.majesty.model;
  * PLU  31.10.2018
  */
 
+import java.awt.Color;
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -24,6 +25,7 @@ public class Player implements Serializable{
 	private Infirmary inf;
 	private int currentScore;
 	private MeepleCard mc;
+	private Color color;
 	
 	public void changeScore(int i) {
 		this.currentScore += i;

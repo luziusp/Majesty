@@ -1,5 +1,6 @@
 package clientserver;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
@@ -7,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Collections;
 
 import ch.majesty.model.Market;
@@ -28,6 +30,7 @@ public class Server extends Thread{
 	private static final int PORT = 22322;
 	private static final int MAX_PLAYERS = 2;
 	private static ServerSocket servSocket;
+	private static ArrayList<ObjectOutputStream> outputList;
 	private static Thread thread;
 	private boolean running = true;
 	private int cardsBoughtTotal=0;
@@ -77,7 +80,8 @@ public  class Handler extends Thread{
 		try {
 			 input = new ObjectInputStream(socket.getInputStream());
 	         output = new ObjectOutputStream(socket.getOutputStream());
-
+	         
+	         outputList.add(output);
 	         
 			Object o = new Object();
 
@@ -100,7 +104,15 @@ public  class Handler extends Thread{
 					if (o instanceof Player) {
                         //Commented out for testing
 							if(playerList.getPlayerData().size() < MAX_PLAYERS) {
-							playerList.getPlayerData().add((Player) o);
+								Player player = (Player) o;
+								if(playerList.getPlayerData().size() == 1) {
+									player.setColor(Color.BLUE);
+								}
+								else {
+									player.setColor(Color.GREEN);
+								}
+									
+							playerList.getPlayerData().add(player);
 							System.out.println("Player added");
 							System.out.println("playersize "+ playerList.getPlayerData().size());
 							}
@@ -146,8 +158,10 @@ public  class Handler extends Thread{
 			// nach Anzahl Spieler x 12 Zügen Gewinner wird berechnet (players.calcWinner)
 			if(output != null) {
 				try {
+					for(ObjectOutputStream output : outputList) {
 					output.writeObject(gameState);
 					output.reset();
+					}
 
 				}catch (Exception e){
 
@@ -170,11 +184,12 @@ public  class Handler extends Thread{
 
 	public void sendPlayer (Players player) throws IOException {
 		try {
+
 			
-			//TODO Update GUI to show winner or loser view 
-			
+			for(ObjectOutputStream output : outputList) {
 			output.reset();
 			output.writeObject(player);
+			}
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -190,11 +205,10 @@ public  class Handler extends Thread{
 	}
 	public void sendWinner (String winner) throws IOException {
 		try {
-			
-			//TODO Update GUI to show winner or loser view 
-			
+			for(ObjectOutputStream output : outputList) {
 			output.reset();
 			output.writeObject(winner);
+			}
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -209,10 +223,24 @@ public  class Handler extends Thread{
 			
 		}
 	}
+	private void sendMessage(ChatMessage message) {
+		try {
+			for(ObjectOutputStream output : outputList) {
+			output.reset();
+			output.writeObject(message);
+			}
+		}
+		catch(IOException e){
+			e.printStackTrace();
+			
+		}	
+		finally {
+			
+		}
+	}
 
 	private void handleMove(Move move){
 		market.buy(move.getCardPlayed(), move.getPlayer());
-		//TODO GUI updaten	
 		
 	}
 	

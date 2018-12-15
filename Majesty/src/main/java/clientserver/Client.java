@@ -29,6 +29,7 @@ public class Client extends Thread {
     private static Thread thread;
     private Player thisPlayer;
     private GameController gc;
+    private boolean started = false;
     
   
 
@@ -64,10 +65,7 @@ public class Client extends Thread {
 
 
 			sendThisPlayer();
-/* Test
-            Move m = new Move(1,thisPlayer);
-            sendMove(m);
-*/
+			
 			System.out.println("Player created on client and sent");
 
 			
@@ -101,6 +99,10 @@ public class Client extends Thread {
 				
 				if(obj instanceof GameState) {
 					handleGS((GameState)obj);
+					if(!started) {
+						//TODO Client GUI hier öffnen!
+						started = true;
+					}
 				}
 				else {
 
@@ -112,6 +114,12 @@ public class Client extends Thread {
 					if(obj instanceof String) {
 						handleEnd((String) obj);
 
+					}
+					else {
+						if(obj instanceof ChatMessage) {
+							handleMessage((ChatMessage) obj);
+
+						}
 					}
 				}
 				}
@@ -159,8 +167,7 @@ public class Client extends Thread {
 	public void handleGS(GameState gs) {
 		this.playerList =gs.getPlayers();
 		this.market = gs.getMarket();
-	
-		yourTurn = true;
+
 		//TODO run update of GUI
 	}
 	
@@ -190,5 +197,28 @@ public class Client extends Thread {
 	
 	public void handleAdd(Player player) {
 		playerList.getPlayerData().add(player);
+	}
+	
+	private void handleMessage(ChatMessage message) {
+		//TODO Display Message
+	}
+	
+	private void sendMessage(String mess) throws IOException {
+		ChatMessage message = new ChatMessage();
+		message.setMessage(mess);
+		message.setColor(thisPlayer.getColor());
+		message.setPlayer(thisPlayer);
+		try {
+			output.writeObject(message);
+			System.out.print("SENT MESSAGE");
+
+		}
+		catch(IOException e){
+			e.printStackTrace();
+			sendMessage(mess);
+		}	
+		finally {
+			output.reset();
+		}
 	}
 }
