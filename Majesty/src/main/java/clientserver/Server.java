@@ -126,7 +126,11 @@ public  class Handler extends Thread{
 								GameState gs = actualizeGame();
 								
 							}
-							
+							if (o instanceof ChatMessage) {
+								ChatMessage message = (ChatMessage) o;
+								System.out.println(message.getMessage());
+								sendMessage(message);
+							}
 
 				}
 				}catch (Exception e) {

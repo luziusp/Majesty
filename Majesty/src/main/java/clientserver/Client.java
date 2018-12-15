@@ -151,6 +151,7 @@ public class Client extends Thread {
 	public void sendMove(Move move) throws IOException {
 		try {
 			thisPlayer.setYourTurn(false); 
+			String message = new String(thisPlayer.getUser()+" has bought "+ market.getList().get(move.getCardPlayed()));
 			//TODO Update GUI
 			output.writeObject(move);
 			System.out.print("SENT MOVE");
