@@ -1,10 +1,10 @@
 package test;
 
+
 import clientserver.Client;
-import clientserver.Server;
 import clientserver.StarterHelp;
 
-public class ServerClientTest {
+public class StartServer {
 
 	public static void main(String[] args) throws Exception {
 		

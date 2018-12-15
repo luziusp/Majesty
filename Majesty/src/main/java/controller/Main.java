@@ -3,7 +3,6 @@ package controller;
 import java.io.File;
 
 import ch.majesty.model.Player;
-import ch.majesty.model.XmlHandler;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -84,12 +83,6 @@ public class Main extends Application {
 		return playerData;
 	}
 
-	public void savePlayers() {
-		XmlHandler.marshall(playerData, new File("players.xml"));
-	}
 
-	public void readPlayer() {
-		playerData = XmlHandler.unmarshall(new File("players.xml"));
-	}
 
 }

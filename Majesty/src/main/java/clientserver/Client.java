@@ -99,6 +99,7 @@ public class Client extends Thread {
 				
 				if(obj instanceof GameState) {
 					handleGS((GameState)obj);
+					System.out.println("Gamestate received");
 					if(!started) {
 						//TODO Client GUI hier öffnen!
 						started = true;
@@ -167,7 +168,7 @@ public class Client extends Thread {
 	public void handleGS(GameState gs) {
 		this.playerList =gs.getPlayers();
 		this.market = gs.getMarket();
-
+		System.out.println("Gamestate actualised");
 		//TODO run update of GUI
 	}
 	

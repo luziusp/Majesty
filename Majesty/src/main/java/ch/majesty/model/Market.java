@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -101,6 +104,7 @@ public class Market implements Serializable {
 		
 	}
 		else {		
+			notEnoughMeepleAlert();
 			return null;
 		}
 		
@@ -187,8 +191,22 @@ public class Market implements Serializable {
 		return board1.toString();
 		
 	}
-	
-	
+	public void notEnoughMeepleAlert() {
+		Alert alert = new Alert (AlertType.INFORMATION);
+		alert.setTitle("Not enough Meeple");
+		alert.setHeaderText("Warnung");
+		alert.setContentText("You do not have enough meeple to buy this card. Select another one");
+		alert.showAndWait();
 }
-
+	public boolean isBuyable(int listLocation, Player player) {
+		boolean buyable;
+		if(listLocation <= player.getMc().getCount()) {
+		buyable = true;
+	}
+		else {
+			buyable = false;
+		}
+		return buyable;
+}
+}
 		

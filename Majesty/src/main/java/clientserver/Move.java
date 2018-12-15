@@ -11,7 +11,7 @@ public class Move implements Serializable {
 	private int cardPlayed;
 	private Player player;
 	
-	Move(int cardPlayed,  Player player) {
+	public Move(int cardPlayed,  Player player) {
 		this.cardPlayed =  cardPlayed;
 		this.player = player;
 	}

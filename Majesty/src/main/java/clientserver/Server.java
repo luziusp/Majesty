@@ -10,6 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 
 import ch.majesty.model.Market;
 import ch.majesty.model.Player;
@@ -30,10 +31,11 @@ public class Server extends Thread{
 	private static final int PORT = 22322;
 	private static final int MAX_PLAYERS = 2;
 	private static ServerSocket servSocket;
-	private static ArrayList<ObjectOutputStream> outputList;
 	private static Thread thread;
 	private boolean running = true;
 	private int cardsBoughtTotal=0;
+	
+	private static HashSet<ObjectOutputStream> outputList = new HashSet<ObjectOutputStream>();
 
 	
 	private GameController gc;
@@ -82,6 +84,7 @@ public  class Handler extends Thread{
 	         output = new ObjectOutputStream(socket.getOutputStream());
 	         
 	         outputList.add(output);
+
 	         
 			Object o = new Object();
 
@@ -97,12 +100,12 @@ public  class Handler extends Thread{
 
 					if (o instanceof Move) {
 							System.out.print("Move");
-                        //Commented out for testing
-							//handleMove((Move) o);
-							//actualizeGame();
+                     
+							handleMove((Move) o);
+							actualizeGame();
 					}
 					if (o instanceof Player) {
-                        //Commented out for testing
+                    
 							if(playerList.getPlayerData().size() < MAX_PLAYERS) {
 								Player player = (Player) o;
 								if(playerList.getPlayerData().size() == 1) {
@@ -158,10 +161,10 @@ public  class Handler extends Thread{
 			// nach Anzahl Spieler x 12 Zügen Gewinner wird berechnet (players.calcWinner)
 			if(output != null) {
 				try {
-					for(ObjectOutputStream output : outputList) {
-					output.writeObject(gameState);
-					output.reset();
-					}
+
+					sendToAll(gameState);
+					System.out.println("Gamestate sent");
+					
 
 				}catch (Exception e){
 
@@ -185,11 +188,8 @@ public  class Handler extends Thread{
 	public void sendPlayer (Players player) throws IOException {
 		try {
 
+			sendToAll(player);
 			
-			for(ObjectOutputStream output : outputList) {
-			output.reset();
-			output.writeObject(player);
-			}
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -205,10 +205,9 @@ public  class Handler extends Thread{
 	}
 	public void sendWinner (String winner) throws IOException {
 		try {
-			for(ObjectOutputStream output : outputList) {
-			output.reset();
-			output.writeObject(winner);
-			}
+
+			sendToAll(winner);
+			
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -225,10 +224,9 @@ public  class Handler extends Thread{
 	}
 	private void sendMessage(ChatMessage message) {
 		try {
-			for(ObjectOutputStream output : outputList) {
-			output.reset();
-			output.writeObject(message);
-			}
+
+			sendToAll(message);
+			
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -243,7 +241,15 @@ public  class Handler extends Thread{
 		market.buy(move.getCardPlayed(), move.getPlayer());
 		
 	}
-	
+    private void sendToAll(Object o) throws IOException {
+        for (ObjectOutputStream output : outputList){
+            if (output != null){
+                output.writeObject(o);
+                output.reset();
+            }
+
+        }
+    }
 
 }
 }
